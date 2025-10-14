@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Akash S | UI/UX & Frontend Portfolio</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <style>
+        /* Custom styles for the Glassmorphism effect */
+        .glass-card {
+            /* Adjusted opacity for better visibility on pure black background */
+            background-color: rgba(255, 255, 255, 0.08); /* Semi-transparent background */
+            border: 1px solid rgba(255, 255, 255, 0.15); /* Subtle light border */
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5); /* Stronger shadow for depth on black */
+            backdrop-filter: blur(10px); /* The key blurring effect */
+            -webkit-backdrop-filter: blur(10px); /* For Safari support */
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s;
+        }
+
+        /* NEW: Hover effect for glass cards */
+        .glass-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 20px rgba(248, 113, 113, 0.7); /* Red glow effect (red-400) */
+            border-color: rgba(248, 113, 113, 0.5); /* Lighter red border on hover */
+        }
+
+        /* Styling for form inputs */
+        .glass-input {
+            background-color: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #ffffff;
+            padding: 12px 16px;
+            border-radius: 12px;
+            width: 100%;
+            transition: border-color 0.3s, background-color 0.3s;
+        }
+
+        .glass-input:focus {
+            outline: none;
+            border-color: #f87171; /* red-400 */
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Set pure black background and define full-page container for particles */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #000000;
+            background-attachment: fixed;
+            min-height: 100vh;
+            overflow-x: hidden; /* Prevent horizontal scroll from particle canvas */
+        }
+
+        /* Ensure smooth scroll for navigation links */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Canvas for particle effect */
+        #particleCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1; /* Keep it behind the content */
+            pointer-events: none; /* Allows clicks to pass through to content */
+        }
+
+        /* Ensures content is above the canvas */
+        .content-wrapper {
+            position: relative;
+            z-index: 10; 
+        }
+    </style>
+</head>
+<body class="text-white antialiased bg-black">
+    
+    <!-- NEW: Particle Background Canvas -->
+    <canvas id="particleCanvas"></canvas>
+
+    <!-- Sticky Header Navigation Tab -->
+    <nav class="sticky top-0 z-50 glass-card p-4 rounded-b-3xl">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <h1 class="text-xl font-bold text-red-400">Akash S Portfolio</h1>
+            <div class="flex space-x-6 text-sm font-medium">
+                <a href="#profile" class="text-white/80 hover:text-red-400 transition">Profile</a>
+                <a href="#projects" class="text-white/80 hover:text-red-400 transition">Projects</a>
+                <a href="#skills" class="text-white/80 hover:text-red-400 transition">Skills</a>
+                <a href="#contact" class="text-white/80 hover:text-red-400 transition">Contact</a>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Content Wrapper to ensure Z-Index stacking -->
+    <div class="content-wrapper">
+        <!-- Main Content Container with padding for the fixed header -->
+        <div class="max-w-7xl mx-auto p-4 md:p-8 lg:p-12 pt-12"> 
+
+            <!-- Header / Hero Section (Glass-Card) -->
+            <header class="glass-card rounded-3xl p-6 md:p-10 lg:p-16 mb-8 flex flex-col md:flex-row items-center justify-between">
+                <div class="flex-1 text-center md:text-left">
+                    <p class="text-lg text-red-300 font-medium mb-2">Hello, I'm</p>
+                    <h1 class="text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight mb-4">AKASH S</h1>
+                    <p class="text-2xl md:text-3xl font-light text-red-200 mb-6">UI/UX Designer & Computer Science Student</p>
+                    
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+                        <a href="#projects" class="w-full sm:w-auto px-6 py-3 font-semibold rounded-xl bg-red-600 hover:bg-red-500 transition duration-300 shadow-lg flex items-center justify-center">
+                            <i data-lucide="layout-grid" class="w-5 h-5 mr-2"></i> View Projects
+                        </a>
+                        <!-- NEW GITHUB BUTTON -->
+                        <a href="https://github.com/akash-s-stk" target="_blank" class="w-full sm:w-auto px-6 py-3 font-semibold rounded-xl border border-white/50 text-white/90 hover:border-white hover:text-white transition duration-300 shadow-md flex items-center justify-center">
+                            <i data-lucide="github" class="w-5 h-5 mr-2"></i> GitHub
+                        </a>
+                        <!-- Existing LinkedIn Button -->
+                        <a href="https://www.linkedin.com/in/akash-s-9b4151337/" target="_blank" class="w-full sm:w-auto px-6 py-3 font-semibold rounded-xl border border-red-400 text-red-200 hover:border-red-200 hover:text-white transition duration-300 shadow-md flex items-center justify-center">
+                            <i data-lucide="linkedin" class="w-5 h-5 mr-2"></i> LinkedIn
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Profile Image -->
+                <div class="mt-8 md:mt-0 md:ml-12">
+                    <div class="w-48 h-48 rounded-full bg-white/20 p-1 shadow-2xl flex items-center justify-center overflow-hidden">
+                        <!-- Image tag added here using the uploaded file's content fetch ID -->
+                        <img src="AKASH S BE CSE photo.jpg-f5d73fc4-6bb3-4934-ba2a-4df33112ac91" 
+                            alt="Akash S Profile Photo" 
+                            class="object-cover w-full h-full rounded-full"
+                            onerror="this.onerror=null; this.src='https://placehold.co/192x192/000000/FFFFFF?text=AKASH+S';"
+                        >
+                    </div>
+                </div>
+            </header>
+
+            <!-- Main Content Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                
+                <!-- Left Column: Profile, Projects, Education, Certifications -->
+                <div class="lg:col-span-2 space-y-8">
+                    
+                    <!-- 1. Profile Summary -->
+                    <section id="profile" class="glass-card rounded-3xl p-8">
+                        <h2 class="text-3xl font-bold mb-4 flex items-center"><i data-lucide="info" class="w-6 h-6 mr-3 text-red-400"></i> Profile</h2>
+                        <p class="text-lg text-white/90 leading-relaxed">
+                            Highly motivated and quick-learning college student majoring in Computer Science Engineering. Eager to apply academic knowledge and develop practical skills, with a strong ability in **UI/UX Design**. I am actively seeking to gain industry experience and contribute positively to team projects, focusing on creating intuitive and visually appealing digital experiences.
+                        </p>
+                    </section>
+
+                    <!-- 2. Projects Section (Cleaned up) -->
+                    <section id="projects" class="glass-card rounded-3xl p-8">
+                        <h2 class="text-3xl font-bold mb-6 flex items-center"><i data-lucide="code" class="w-6 h-6 mr-3 text-red-400"></i> Key Project</h2>
+                        
+                        <div class="bg-white/10 p-6 rounded-2xl border border-white/20">
+                            <h3 class="text-2xl font-semibold mb-2 text-red-300">E-commerce Platform Development</h3>
+                            <p class="text-sm font-medium text-white/70 mb-4">Technologies: HTML, CSS</p>
+                            <p id="project-description" class="text-white/90">
+                                Designed and developed a simple front-end interface for an e-commerce platform. I focused on core user experience flows by building responsive product listing pages, an intuitive shopping cart layout, and user-friendly navigation to demonstrate foundational web design and styling skills.
+                            </p>
+                        </div>
+                    </section>
+
+                    <!-- 3. Education & Certifications -->
+                    <section class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <!-- Education -->
+                        <div class="glass-card rounded-3xl p-8">
+                            <h2 class="text-3xl font-bold mb-4 flex items-center"><i data-lucide="graduation-cap" class="w-6 h-6 mr-3 text-red-400"></i> Education</h2>
+                            <p class="text-xl font-semibold text-red-300">Bachelor of Computer Science</p>
+                            
+                            <!-- UPDATED: College name is now a clickable link -->
+                            <a href="https://www.stjosephstechnology.ac.in/" target="_blank" class="text-white/70 hover:text-red-400 transition duration-200 underline">
+                                ST. Joseph's Institute of Technology
+                            </a>
+                            
+                            <p class="text-sm text-white/50 mt-2">2024 - 2028 | CGPA: 6.96</p>
+                        </div>
+
+                        <!-- Certifications -->
+                        <div class="glass-card rounded-3xl p-8">
+                            <h2 class="text-3xl font-bold mb-4 flex items-center"><i data-lucide="award" class="w-6 h-6 mr-3 text-red-400"></i> Certifications</h2>
+                            <ul class="space-y-3 text-white/90 list-none">
+                                <li class="flex items-start"><i data-lucide="check-circle" class="w-5 h-5 mr-3 text-emerald-400 mt-1 flex-shrink-0"></i> Digital skills: User Experience - **Accenture**</li>
+                                <li class="flex items-start"><i data-lucide="check-circle" class="w-5 h-5 mr-3 text-emerald-400 mt-1 flex-shrink-0"></i> AI for Beginners - **HP Life**</li>
+                                <li class="flex items-start"><i data-lucide="check-circle" class="w-5 h-5 mr-3 text-emerald-400 mt-1 flex-shrink-0"></i> User Interface Design - **NPTEL**</li>
+                            </ul>
+                        </div>
+                    </section>
+                    
+                </div>
+
+                <!-- Right Column: Skills and Contact -->
+                <div class="lg:col-span-1 space-y-8">
+                    
+                    <!-- 4. Tech Skills -->
+                    <section id="skills" class="glass-card rounded-3xl p-8">
+                        <h2 class="text-3xl font-bold mb-4 flex items-center"><i data-lucide="layers" class="w-6 h-6 mr-3 text-red-400"></i> Technical Toolkit</h2>
+                        <div class="flex flex-wrap gap-3">
+                            <!-- Tech Skills - Adjusted colors for high contrast -->
+                            <span class="px-3 py-1 bg-red-500/30 rounded-full text-sm font-medium border border-red-400">UI/UX Design</span>
+                            <span class="px-3 py-1 bg-red-500/30 rounded-full text-sm font-medium border border-red-400">Frontend Development</span>
+                            <span class="px-3 py-1 bg-red-500/30 rounded-full text-sm font-medium border border-red-400">Figma</span>
+                            <span class="px-3 py-1 bg-red-500/30 rounded-full text-sm font-medium border border-red-400">SQL, MySQL</span>
+                            <span class="px-3 py-1 bg-red-500/30 rounded-full text-sm font-medium border border-red-400">HTML, CSS</span>
+                            <span class="px-3 py-1 bg-red-500/30 rounded-full text-sm font-medium border border-red-400">Video Editing</span>
+                        </div>
+                    </section>
+
+                    <!-- 5. Soft Skills & Languages -->
+                    <section class="glass-card rounded-3xl p-8">
+                        <h2 class="text-3xl font-bold mb-4 flex items-center"><i data-lucide="users" class="w-6 h-6 mr-3 text-red-400"></i> Core Strengths</h2>
+                        
+                        <h3 class="text-xl font-semibold mb-3 text-red-300">Soft Skills</h3>
+                        <div class="flex flex-wrap gap-3 mb-6">
+                            <span class="px-3 py-1 bg-emerald-500/30 rounded-full text-sm font-medium border border-emerald-400">Teamwork</span>
+                            <span class="px-3 py-1 bg-emerald-500/30 rounded-full text-sm font-medium border border-emerald-400">Leadership</span>
+                            <span class="px-3 py-1 bg-emerald-500/30 rounded-full text-sm font-medium border border-emerald-400">Time Management</span>
+                            <span class="px-3 py-1 bg-emerald-500/30 rounded-full text-sm font-medium border border-emerald-400">Critical Thinking</span>
+                        </div>
+
+                        <h3 class="text-xl font-semibold mb-3 text-red-300">Languages</h3>
+                        <div class="flex flex-wrap gap-3">
+                            <span class="px-3 py-1 bg-red-500/30 rounded-full text-sm font-medium border border-red-400">Tamil (Fluent)</span>
+                            <span class="px-3 py-1 bg-red-500/30 rounded-full text-sm font-medium border border-red-400">English (Fluent)</span>
+                        </div>
+                    </section>
+
+                    <!-- 6. Contact Form (Updated Section) -->
+                    <section id="contact" class="glass-card rounded-3xl p-8">
+                        <h2 class="text-3xl font-bold mb-6 flex items-center"><i data-lucide="send" class="w-6 h-6 mr-3 text-red-400"></i> Send Me a Message</h2>
+                        
+                        <!-- NOTE: Form uses mailto: for client-side functionality. -->
+                        <form action="mailto:akashssnew@gmail.com" method="POST" enctype="text/plain" class="space-y-4">
+                            
+                            <div>
+                                <label for="name" class="block text-sm font-medium mb-2 text-white/90">Your Name</label>
+                                <input type="text" id="name" name="Name" required placeholder="John Doe" class="glass-input">
+                            </div>
+
+                            <div>
+                                <label for="subject" class="block text-sm font-medium mb-2 text-white/90">Subject</label>
+                                <input type="text" id="subject" name="Subject" required placeholder="Enquiry about a project" class="glass-input">
+                            </div>
+                            
+                            <div>
+                                <label for="message" class="block text-sm font-medium mb-2 text-white/90">Message</label>
+                                <!-- Note: The name attribute for the message body must be 'Body' for mailto to work correctly -->
+                                <textarea id="message" name="Body" rows="5" required placeholder="I'd love to discuss..." class="glass-input"></textarea>
+                            </div>
+                            
+                            <p class="text-sm text-yellow-300 bg-white/10 p-3 rounded-xl border border-yellow-400/50 flex items-center">
+                                <i data-lucide="alert-triangle" class="w-4 h-4 mr-2 flex-shrink-0"></i>
+                                Submitting this form will open your default email client (e.g., Gmail, Outlook) to send the message.
+                            </p>
+
+                            <button type="submit" class="w-full px-6 py-3 font-bold rounded-xl bg-red-600 hover:bg-red-500 transition duration-300 shadow-lg flex items-center justify-center">
+                                <i data-lucide="mail-check" class="w-5 h-5 mr-2"></i> Send Email
+                            </button>
+                        </form>
+                    </section>
+                    
+                    <!-- Added back the basic contact info for quick reference -->
+                    <section class="glass-card rounded-3xl p-8">
+                        <h2 class="text-xl font-bold mb-4 flex items-center"><i data-lucide="address-book" class="w-5 h-5 mr-3 text-red-400"></i> Quick Contact Info</h2>
+                        <ul class="space-y-4">
+                            <li class="flex items-center text-white/90">
+                                <i data-lucide="at-sign" class="w-6 h-6 mr-4 text-red-400"></i>
+                                <a href="mailto:akashssnew@gmail.com" class="hover:text-red-400 transition duration-200">akashssnew@gmail.com</a>
+                            </li>
+                            <li class="flex items-center text-white/90">
+                                <i data-lucide="phone" class="w-6 h-6 mr-4 text-red-400"></i>
+                                <span>+91 93846 91883</span>
+                            </li>
+                            <!-- NEW: Address added to fill vertical space -->
+                            <li class="flex items-start text-white/90">
+                                <i data-lucide="map-pin" class="w-6 h-6 mr-4 text-red-400 flex-shrink-0 mt-1"></i>
+                                <div class="flex-grow">
+                                    <p>4-142/1, Eathankadu,</p>
+                                    <p>Kanniyakumari-629203</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </section>
+                </div>
+
+            </div>
+
+            <!-- Footer -->
+            <footer class="mt-12 text-center text-white/50 text-sm">
+                <p>&copy; 2024 Akash S. Designed with Glassmorphism and Tailwind CSS.</p>
+            </footer>
+        </div>
+    </div>
+    
+    <!-- JavaScript for Particle Effect and Icon Initialization -->
+    <script>
+        lucide.createIcons();
+
+        // ------------------------------------------------------------------
+        // NEW INTERACTIVE BACKGROUND PARTICLE EFFECT
+        // ------------------------------------------------------------------
+        const canvas = document.getElementById('particleCanvas');
+        const ctx = canvas.getContext('2d');
+        let width, height;
+        let particles = [];
+        const particleCount = 50;
+        let mouse = { x: null, y: null, radius: 100 };
+
+        // Set up the canvas dimensions and handle resizing
+        function resizeCanvas() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        // Particle Class
+        class Particle {
+            constructor(x, y, directionX, directionY, size, color) {
+                this.x = x;
+                this.y = y;
+                this.directionX = directionX;
+                this.directionY = directionY;
+                this.size = size;
+                this.color = color;
+            }
+
+            // Draw individual particle
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
+                ctx.fillStyle = this.color;
+                ctx.fill();
+            }
+
+            // Check particle position, check mouse position, move the particle
+            update() {
+                // Check if particle is still within the canvas
+                if (this.x > width || this.x < 0) {
+                    this.directionX = -this.directionX;
+                }
+                if (this.y > height || this.y < 0) {
+                    this.directionY = -this.directionY;
+                }
+
+                // Mouse interactivity
+                let dx = mouse.x - this.x;
+                let dy = mouse.y - this.y;
+                let distance = Math.sqrt(dx*dx + dy*dy);
+
+                if (distance < mouse.radius + this.size) {
+                    // Push particle away from mouse for a subtle repulsion effect
+                    let angle = Math.atan2(dy, dx);
+                    let force = mouse.radius / distance;
+                    this.x -= force * Math.cos(angle) * 0.5;
+                    this.y -= force * Math.sin(angle) * 0.5;
+                }
+
+                // Move particle
+                this.x += this.directionX;
+                this.y += this.directionY;
+                
+                // Draw particle
+                this.draw();
+            }
+        }
+
+        // Create particle array
+        function init() {
+            particles = [];
+            for (let i = 0; i < particleCount; i++) {
+                let size = (Math.random() * 3) + 1;
+                let x = (Math.random() * ((width - size * 2) - (size * 2)) + size * 2);
+                let y = (Math.random() * ((height - size * 2) - (size * 2)) + size * 2);
+                let directionX = (Math.random() * 0.5) - 0.25; // Slow movement
+                let directionY = (Math.random() * 0.5) - 0.25; // Slow movement
+                // Use a red/white color for the particles
+                let color = Math.random() > 0.5 ? 'rgba(255, 99, 71, 0.7)' : 'rgba(255, 255, 255, 0.5)';
+                particles.push(new Particle(x, y, directionX, directionY, size, color));
+            }
+        }
+
+        // Animation Loop
+        function animate() {
+            requestAnimationFrame(animate);
+            ctx.clearRect(0, 0, width, height);
+
+            // Draw lines between close particles
+            for (let a = 0; a < particles.length; a++) {
+                for (let b = a; b < particles.length; b++) {
+                    let distance = Math.sqrt(
+                        Math.pow(particles[a].x - particles[b].x, 2) + 
+                        Math.pow(particles[a].y - particles[b].y, 2)
+                    );
+                    
+                    if (distance < 120) {
+                        ctx.strokeStyle = `rgba(248, 113, 113, ${1 - (distance / 120)})`; // Red line, fades with distance
+                        ctx.lineWidth = 0.5;
+                        ctx.beginPath();
+                        ctx.moveTo(particles[a].x, particles[a].y);
+                        ctx.lineTo(particles[b].x, particles[b].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+
+            // Update all particles
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update();
+            }
+        }
+
+        // Mouse listener for interactivity
+        window.addEventListener('mousemove', (event) => {
+            mouse.x = event.x;
+            mouse.y = event.y;
+        });
+
+        // Initialize particles and start animation
+        init();
+        animate();
+    </script>
+</body>
+</html>
